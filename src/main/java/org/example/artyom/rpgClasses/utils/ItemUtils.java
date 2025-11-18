@@ -10,7 +10,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 
 public class ItemUtils {
-    public static ItemStack create(Material material, int amount, String displayName, String lore1, String lore2, String lore3, String lore4) {
+    public static ItemStack create(Material material, int amount, String displayName, String menu_class, String lore1, String lore2, String lore3, String lore4) {
         ItemStack item = new ItemStack(material, amount);
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
@@ -28,17 +28,25 @@ public class ItemUtils {
             }
         }
 
+        meta.getPersistentDataContainer().set(
+                NamespacedKey.fromString("menu_item"),
+                PersistentDataType.STRING,
+                menu_class
+        );
+
+        item.setItemMeta(meta);
+
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
     }
 
-    public static ItemStack create(Material material, int amount, String displayName, String lore1) {
-        return create(material, amount, displayName, lore1, null, null, null);
+    public static ItemStack create(Material material, int amount, String displayName, String menu_class, String lore1) {
+        return create(material, amount, displayName, menu_class, lore1, null, null, null);
     }
 
-    public static ItemStack create(Material material, String displayName) {
-        return create(material, 1, displayName, null, null, null, null);
+    public static ItemStack create(Material material, String displayName, String menu_class) {
+        return create(material, 1, displayName, menu_class, null, null, null, null);
     }
 
 

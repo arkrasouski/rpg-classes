@@ -5,7 +5,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.example.artyom.rpgClasses.commands.GUICommand;
 import org.example.artyom.rpgClasses.commands.HandleClasses;
 import org.example.artyom.rpgClasses.eventHandlers.ClassesGuiEvents;
+import org.example.artyom.rpgClasses.eventHandlers.ScoreboardEvents;
 import org.example.artyom.rpgClasses.plugins.Classes;
+import org.example.artyom.rpgClasses.utils.ScoreUtils;
 
 public final class RpgClasses extends JavaPlugin {
 
@@ -13,6 +15,7 @@ public final class RpgClasses extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(new ClassesGuiEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new ScoreboardEvents(), this);
         getCommand("getclass").setExecutor(new HandleClasses());
         getCommand("gui").setExecutor(new GUICommand());
     }

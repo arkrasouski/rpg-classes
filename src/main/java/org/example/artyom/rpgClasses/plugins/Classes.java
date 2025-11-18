@@ -17,6 +17,7 @@ public enum Classes {
         private int mana;
         private String name;
         private Material classMaterial;
+        public static String menuName = "Classes";
 
     Classes(int HP, int strength, int agility, int mana, String name, Material classMaterial) {
             this.HP = HP;
@@ -26,6 +27,7 @@ public enum Classes {
 
             this.name = name;
             this.classMaterial = classMaterial;
+
         }
 
     public static Classes getClassFromItem(ItemStack itemStack) {
@@ -63,6 +65,8 @@ public enum Classes {
         return classMaterial;
     }
 
+
+
     public void setHP(int HP) {
         this.HP = HP;
     }
@@ -86,4 +90,6 @@ public enum Classes {
     public void setClassMaterial(Material classMaterial) {
         this.classMaterial = classMaterial;
     }
+
+
 }
