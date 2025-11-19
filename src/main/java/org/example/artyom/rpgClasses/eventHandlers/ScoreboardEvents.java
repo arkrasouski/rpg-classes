@@ -1,5 +1,6 @@
 package org.example.artyom.rpgClasses.eventHandlers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -9,7 +10,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.example.artyom.rpgClasses.customEvents.ChangeClassEvent;
+import org.example.artyom.rpgClasses.customEvents.ChangeJobEvent;
 import org.example.artyom.rpgClasses.plugins.Classes;
+import org.example.artyom.rpgClasses.plugins.Jobs;
+import org.example.artyom.rpgClasses.utils.PlayerJobsUtils;
 import org.example.artyom.rpgClasses.utils.ScoreUtils;
 
 public class ScoreboardEvents implements Listener {
@@ -21,16 +25,20 @@ public class ScoreboardEvents implements Listener {
         helper.setSlot(3, "&7&m--------------------------------");
         helper.setSlot(2, "&aPlayer&f: " + player.getName());
         helper.setSlot(1, "&7&m--------------------------------");
-        helper.setSlot(4, "&cMaxHealth---" + player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        helper.setSlot(4, "&cMaxHealth = " + player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
         String className = player.getPersistentDataContainer().get(NamespacedKey.fromString("player_class"), PersistentDataType.STRING);
+        String jobName = player.getPersistentDataContainer().get(NamespacedKey.fromString("player_job"), PersistentDataType.STRING);
         Classes playerClass = null;
+        Jobs playerJob = Jobs.NULL;
         if ( className != null) {
             playerClass = Classes.valueOf(className.toUpperCase());
 
         }
-
-        helper.setSlot(5, "&9Mana---" + (playerClass == null ? 2000 : playerClass.getMana()));
-
+        if(jobName != null) {
+            playerJob = Jobs.valueOf(jobName.toUpperCase());
+        }
+        helper.setSlot(5, "&9Mana = " + (playerClass == null ? 2000 : playerClass.getMana()));
+        helper.setSlot(6, "&4Your job is &5" + playerJob.getName());
         //helper.setSlot(4, "&a Убил огнем существ:&f " + helper.fired_entity);
     }
 
@@ -50,7 +58,29 @@ public class ScoreboardEvents implements Listener {
         ScoreUtils score = ScoreUtils.getByPlayer(player);
         //int killed_by_fire_count = score.fired_entity += 1;
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(playerClass.getHP());
+        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+
+        player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(playerClass.getStrength() * 0.25);
+        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(playerClass.getAgility() * 0.1);
+
+        PlayerJobsUtils.giveJobParametersToPlayer(player, "Null");
+        Bukkit.getPluginManager().callEvent(new ChangeJobEvent(player, Jobs.NULL));
+
         score.setSlot(4, "&cMaxHealth = " + playerClass.getHP());
         score.setSlot(5, "&9Mana = " +  playerClass.getMana());
+    }
+
+    @EventHandler
+    public void onChangeJobEvent(ChangeJobEvent event) {
+        Player player = event.getPlayer();
+        Jobs playerClass = event.getPlayerJob();
+        // Обновляем scoreboard
+        ScoreUtils score = ScoreUtils.getByPlayer(player);
+
+        if (score == null) {
+            System.out.println("Scoreboard for " + player.getName() + " NOT FOUND!");
+            return;
+        }
+        score.setSlot(6, "&4Your job is &5" + playerClass.getName());
     }
 }

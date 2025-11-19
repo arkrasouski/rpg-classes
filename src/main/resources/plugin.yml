@@ -8,3 +8,7 @@ commands:
     description: lol
   getclass:
     description: Выдает свиток
+  jobs:
+    description: lol
+  getjobs:
+    description: lol

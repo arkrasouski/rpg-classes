@@ -7,9 +7,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public enum Classes {
-    WIZARD(20, 10, 12, 40, "Wizard", Material.TURTLE_HELMET),
-    WARRIOR(30, 25, 10, 20, "Warrior", Material.CHAINMAIL_HELMET),
-    SACRIFIER(15, 10, 15, 50, "Sacrifier", Material.GOLDEN_HELMET);
+    WIZARD(20, 10, 2, 40, "Wizard", Material.TURTLE_HELMET),
+    WARRIOR(30, 25, 1, 20, "Warrior", Material.CHAINMAIL_HELMET),
+    SACRIFIER(15, 10, 3, 50, "Sacrifier", Material.GOLDEN_HELMET);
 
         private int HP;
         private int strength;

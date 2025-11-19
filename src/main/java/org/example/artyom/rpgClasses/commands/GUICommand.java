@@ -5,6 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.example.artyom.rpgClasses.gui.ClassesGUI;
+import org.example.artyom.rpgClasses.gui.JobGUI;
 
 public class GUICommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -12,6 +13,11 @@ public class GUICommand implements CommandExecutor {
             if(sender instanceof Player) {
                 Player player = (Player) sender;
                 ClassesGUI.openGUI(player);
+            }
+        } else if (cmd.getName().equalsIgnoreCase("jobs")) {
+            if(sender instanceof Player) {
+                Player player = (Player) sender;
+                JobGUI.openGUI(player);
             }
         }
         return true;

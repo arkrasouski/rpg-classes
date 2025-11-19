@@ -24,20 +24,13 @@ public class HandleClasses implements CommandExecutor {
             //ArmsHandler.handle(scroll, player);
 
             if (gameClass.getName().equalsIgnoreCase("wizard")){
-                player.sendMessage("I`m wizard!");
-                PlayerClassesUtils.setPlayerClass(player, "wizard");
-                Bukkit.getPluginManager().callEvent(new ChangeClassEvent(player, Classes.WIZARD));
+                PlayerClassesUtils.giveClassParametersToPlayer(player, "wizard");
             } else if (gameClass.getName().equalsIgnoreCase("warrior")){
-                player.sendMessage("I'm warrior");
-                PlayerClassesUtils.setPlayerClass(player, "warrior");
-                Bukkit.getPluginManager().callEvent(new ChangeClassEvent(player, Classes.WARRIOR));
+                PlayerClassesUtils.giveClassParametersToPlayer(player, "warrior");
 
             }   else if (gameClass.getName().equalsIgnoreCase("sacrifier")){
-                player.sendMessage("I'm sacrifier!");
-                PlayerClassesUtils.setPlayerClass(player, "sacrifier");
-                Bukkit.getPluginManager().callEvent(new ChangeClassEvent(player, Classes.SACRIFIER));
+                PlayerClassesUtils.giveClassParametersToPlayer(player, "sacrifier");
             }
-            player.sendMessage("Успех!");
             return true;
         }
         catch (IllegalArgumentException e) {
