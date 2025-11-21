@@ -2,6 +2,7 @@ package org.example.artyom.rpgClasses.eventHandlers;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,9 @@ public class JobsGUIEvents implements Listener {
 
             e.setCancelled(true);
             ItemStack item = e.getCurrentItem();
+            if (item == null || item.getType() == Material.AIR){
+               return;
+            }
             String menuItemString = item.getItemMeta().getPersistentDataContainer().get(NamespacedKey.fromString("menu_item"), PersistentDataType.STRING);
             if(item.getType() == Material.OAK_DOOR && menuItemString.equals("Exit")){
                 p.closeInventory();

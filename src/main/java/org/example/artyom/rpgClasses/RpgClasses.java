@@ -14,9 +14,11 @@ import org.example.artyom.rpgClasses.plugins.Jobs;
 import org.example.artyom.rpgClasses.utils.ScoreUtils;
 
 public final class RpgClasses extends JavaPlugin {
+    private static RpgClasses instance;
 
     @Override
     public void onEnable() {
+        instance = this;
         // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(new ClassesGuiEvents(), this);
         Bukkit.getPluginManager().registerEvents(new JobsGUIEvents(), this);
@@ -32,5 +34,9 @@ public final class RpgClasses extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    public static RpgClasses getInstance() {
+        return instance;
     }
 }
