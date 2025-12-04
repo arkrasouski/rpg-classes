@@ -12,7 +12,7 @@ public class PlayerClassesUtils {
     //Вспомогательный класс для работы с кастомными классами игрока
     public static void setPlayerClass(Player player, String className) {
         player.getPersistentDataContainer().set(
-                NamespacedKey.fromString( "player_class"),
+                NamespacedKey.fromString("player_class"),
                 PersistentDataType.STRING,
                 className
         );
@@ -20,19 +20,21 @@ public class PlayerClassesUtils {
 
     public static String getPlayerClass(Player player) {
         return player.getPersistentDataContainer().get(
-                NamespacedKey.fromString( "player_class"),
+                NamespacedKey.fromString("player_class"),
                 PersistentDataType.STRING
         );
     }
 
-    public static void giveClassParametersToPlayer(Player player, String className) {
+    public static void giveClassParametersToPlayer(Player player, Classes classe) {
         //Устанавливаем класс и вызываем ивент обновления класса (возможно стоит объединить с просто установкой класса)
         // player.sendMessage("I`m " + className + "!"); Вот это не надо наверное - mikinol
 
-        PlayerClassesUtils.setPlayerClass(player, className);
-        Bukkit.getPluginManager().callEvent(new ChangeClassEvent(player, Classes.valueOf(className.toUpperCase())));
+        setPlayerStats(player, classe);
+        PlayerClassesUtils.setPlayerClass(player, classe.getName().toLowerCase());
+        Bukkit.getPluginManager().callEvent(new ChangeClassEvent(player, classe));
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public static void setPlayerStats(Player player, Classes playerClass) {
         //Выдача базовых параметров для класса
         player.getAttribute(Attribute.MAX_HEALTH).setBaseValue(playerClass.getHP());

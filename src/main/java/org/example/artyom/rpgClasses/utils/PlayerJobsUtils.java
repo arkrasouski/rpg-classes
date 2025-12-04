@@ -84,11 +84,11 @@ public class PlayerJobsUtils {
                 PersistentDataType.INTEGER);
     }
 
-    public static void giveJobParametersToPlayer(Player player, String className) {
+    public static void giveJobParametersToPlayer(Player player, Jobs job) {
         //Установка профессии и вызов ивента изменения профессии для scoreboard
-        player.sendMessage("I`m " + className + "!");
-        PlayerJobsUtils.setPlayerJob(player, className);
-        Bukkit.getPluginManager().callEvent(new ChangeJobEvent(player, Jobs.valueOf(className.toUpperCase())));
+        // player.sendMessage("I`m " + className + "!");
+        PlayerJobsUtils.setPlayerJob(player, job.toString().toLowerCase());
+        Bukkit.getPluginManager().callEvent(new ChangeJobEvent(player, job));
     }
 
     public static void addArmor(ItemStack item, double addAmount, EquipmentSlotGroup slot, NamespacedKey key, int level) {
