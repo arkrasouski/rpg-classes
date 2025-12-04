@@ -132,7 +132,7 @@ public class PlayerJobsUtils {
         );
         //System.out.println(meta.getAttributeModifiers(Attribute.GENERIC_ARMOR).toString());
 
-        meta.addAttributeModifier(Attribute.GENERIC_ARMOR, newMod);
+        meta.addAttributeModifier(Attribute.ARMOR, newMod);
         item.setItemMeta(meta);
     }
 
@@ -162,7 +162,7 @@ public class PlayerJobsUtils {
     }
 
     public static int changeJobLevelOrExp(Player player, int levelThreshold) {
-        return changeJobLevelOrExp(player, levelThreshold, false); //Перегрузка для получения максимума прогресса уровня
+        return changeJobLevelOrExp(player, levelThreshold, false); // Перегрузка для получения максимума прогресса уровня
     }
 
     public static int changeLevelOrExp(Player player) {

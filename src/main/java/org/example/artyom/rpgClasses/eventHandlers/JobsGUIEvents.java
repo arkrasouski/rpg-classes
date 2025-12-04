@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.example.artyom.rpgClasses.RpgClasses;
 
 public class JobsGUIEvents implements Listener {
     //обработка выбора профессии игрока
@@ -27,10 +28,9 @@ public class JobsGUIEvents implements Listener {
                 p.closeInventory();
             }
             else if(menuItemString.equals("Jobs")){
-                System.out.println(item.getItemMeta().getDisplayName());
+                RpgClasses.getInstance().getLogger().info(item.getItemMeta().getDisplayName());
                 p.performCommand("getjobs " + item.getItemMeta().getDisplayName().toUpperCase());
             }
             p.closeInventory();}
-
     }
 }
